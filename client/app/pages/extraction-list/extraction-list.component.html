@@ -1,0 +1,103 @@
+<!-- TITLE -->
+<mat-card class="mb-40">
+    <h1>Extraction List</h1>
+</mat-card>
+
+<!-- SEARCH FORM -->
+<mat-card>
+    
+    <div class="card-title">
+        <mat-icon>search</mat-icon>
+        Search
+    </div>
+        
+    <form name="form-search" class="container-fluid">
+
+        <div class="row">
+			
+                <div class="col-sm-6">
+                    <mat-form-field class="full-width">
+                        <input matInput type="date" placeholder="ExtractionDate" [(ngModel)]="search.extractionDate" name="extractionDate" id="extractionDate">
+                    </mat-form-field>
+                </div>
+			
+                <div class="col-sm-6">
+                    <mat-form-field class="full-width">
+                        <input matInput type="number" placeholder="Fifth" [(ngModel)]="search.fifth" name="fifth" id="fifth">
+                    </mat-form-field>
+                </div>
+			
+                <div class="col-sm-6">
+                    <mat-form-field class="full-width">
+                        <input matInput type="number" placeholder="First" [(ngModel)]="search.first" name="first" id="first">
+                    </mat-form-field>
+                </div>
+			
+                <div class="col-sm-6">
+                    <mat-form-field class="full-width">
+                        <input matInput type="number" placeholder="Fourth" [(ngModel)]="search.fourth" name="fourth" id="fourth">
+                    </mat-form-field>
+                </div>
+			
+                <div class="col-sm-6">
+                    <mat-form-field class="full-width">
+                        <input matInput type="number" placeholder="Second" [(ngModel)]="search.second" name="second" id="second">
+                    </mat-form-field>
+                </div>
+			
+                <div class="col-sm-6">
+                    <mat-form-field class="full-width">
+                        <input matInput type="number" placeholder="Third" [(ngModel)]="search.third" name="third" id="third">
+                    </mat-form-field>
+                </div>
+        </div>
+
+    </form>
+</mat-card>
+
+<!-- TABLE -->
+<table class="table table-hover mt-40">
+    <thead>
+        <tr>
+            <th>_id</th>
+            <th>extractionDate</th>
+            <th>fifth</th>
+            <th>first</th>
+            <th>fourth</th>
+            <th>second</th>
+            <th>third</th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of list | search: { 'extractionDate': search.extractionDate, 'fifth': search.fifth, 'first': search.first, 'fourth': search.fourth, 'second': search.second, 'third': search.third }">
+            <td><a [routerLink]="['/extractions', item._id]">{{item._id}}</a></td>
+            
+            <!-- ATTRIBUTES -->
+            
+            <td>{{item.extractionDate | date }}</td>
+            <td>{{item.fifth }}</td>
+            <td>{{item.first }}</td>
+            <td>{{item.fourth }}</td>
+            <td>{{item.second }}</td>
+            <td>{{item.third }}</td>
+            
+            <!-- DELETE BUTTON -->
+            <td>
+                <button mat-icon-button (click)="openModal(item._id, modal)" class="mt--10">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+    <div class="no-result" *ngIf="(list | search: {  'extractionDate': search.extractionDate ,  'fifth': search.fifth ,  'first': search.first ,  'fourth': search.fourth ,  'second': search.second ,  'third': search.third  }).length == 0">
+        No items found
+    </div>
+</table>
+
+<!-- BUTTON -->
+<button class="btn btn-primary pull-right mb-20" routerLink="/extractions/new" mat-fab color="primary">
+    <mat-icon>add</mat-icon>
+</button>
+
+<div class="clearfix"></div>
